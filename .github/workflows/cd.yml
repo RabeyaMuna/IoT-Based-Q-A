@@ -1,0 +1,41 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Login to Azure Container Registry
+      uses: azure/docker-login@v1
+      with:
+        login-server: <your_acr>.azurecr.io
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
+        
+    - name: Push backend Docker image to Azure Container Registry
+      run: |
+        docker tag <backend_image_name> <your_acr>.azurecr.io/<backend_image_name>
+        docker push <your_acr>.azurecr.io/<backend_image_name>
+        
+    - name: Push frontend Docker image to Azure Container Registry
+      run: |
+        docker tag <frontend_image_name> <your_acr>.azurecr.io/<frontend_image_name>
+        docker push <your_acr>.azurecr.io/<frontend_image_name>
+        
+    - name: Deploy to Azure
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: <your_web_app_name>
+        images: |
+          <your_acr>.azurecr.io/<backend_image_name>:latest
+          <your_acr>.azurecr.io/<frontend_image_name>:latest
+        multi-container-config-type: compose
+        multi-container-config-file: ./docker-compose.yml  # Corrected parameter name

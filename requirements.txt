@@ -1,0 +1,6 @@
+flask
+flask_cors
+langchain-community
+langchain
+langchain-openai
+langchain-core

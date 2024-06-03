@@ -1,0 +1,23 @@
+Flask
+Flask-Cors
+python-dotenv
+requests
+gunicorn
+
+# LangChain and related dependencies
+langchain
+fastapi
+pydantic
+pandas
+numpy
+scikit-learn
+sentence-transformers
+openai
+transformers
+uvicorn
+langchain_community
+langchain_openai
+chromadb
+langchain-core
+langchainhub
+pypdf

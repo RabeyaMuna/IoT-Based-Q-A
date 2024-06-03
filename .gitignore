@@ -1,0 +1,5 @@
+backend/__pycache__/
+backend/Datasets/chroma_db
+backend/venv
+.env
+venv/
