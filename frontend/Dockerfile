@@ -22,9 +22,6 @@ FROM nginx:stable-alpine
 # Copy the built React app from the previous stage
 COPY --from=build /app/build /usr/share/nginx/html
 
-# Copy your NGINX configuration
-COPY ../iot_project.config /etc/nginx/conf.d/default.conf
-
 EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
